@@ -510,6 +510,7 @@ public class EmpleadoGUI extends javax.swing.JInternalFrame {
     private void jbtnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSeleccionarActionPerformed
         JFileChooser objJFileChooser = new JFileChooser();
         int op = objJFileChooser.showOpenDialog(this);
+        
         if (op == objJFileChooser.APPROVE_OPTION) {
             ruta = objJFileChooser.getSelectedFile().getAbsolutePath();
             jlblFoto.setIcon(new ImageIcon(ruta));

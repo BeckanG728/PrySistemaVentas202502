@@ -56,6 +56,8 @@ public class EmpleadoDAO implements VentasInferface<EmpleadoTO> {
         cst.setBinaryStream(11, objFileInputStream);
 
         cst.execute();
+        
+        
     }
 
     @Override
