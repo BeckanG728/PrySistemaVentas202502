@@ -8,7 +8,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.sql.Blob;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -20,7 +19,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import to.DistritoTO;
 import to.EmpleadoTO;
 
 public class EmpleadoGUI extends javax.swing.JInternalFrame {
