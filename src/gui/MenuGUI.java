@@ -110,6 +110,11 @@ public class MenuGUI extends javax.swing.JFrame {
         facGenerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/factura_1.png"))); // NOI18N
         facGenerar.setMnemonic('t');
         facGenerar.setText("Generar factura");
+        facGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facGenerarActionPerformed(evt);
+            }
+        });
         mnuFacturacion.add(facGenerar);
 
         menuBar.add(mnuFacturacion);
@@ -212,6 +217,10 @@ public class MenuGUI extends javax.swing.JFrame {
     private void manEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manEmpleadoActionPerformed
         MenuGUI.desktopPane.add(new EmpleadoGUI());
     }//GEN-LAST:event_manEmpleadoActionPerformed
+
+    private void facGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facGenerarActionPerformed
+        MenuGUI.desktopPane.add(new FacturaGUI());
+    }//GEN-LAST:event_facGenerarActionPerformed
 
     /**
      * @param args the command line arguments
