@@ -270,16 +270,16 @@ public class ProductoGUI extends javax.swing.JInternalFrame {
 
     private void jbtnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGrabarActionPerformed
         try {
-            
+
             String rutaDefault = "C:\\fotosDemo\\demoProd.png";
             String mensaje = "";
             ProductoTO objProductoTO = new ProductoTO();
             objProductoTO.setNombProd(jtxtNombre.getText());
             objProductoTO.setPrecProd(Double.valueOf(jtxtPrecio.getText().replace(',', '.')));
             objProductoTO.setObsvProd(jtxtObservacion.getText());
-            
+
             if (jtxtRuta.getText().isEmpty()) {
-                
+
                 objProductoTO.setFotoProd(rutaDefault);
             } else {
                 objProductoTO.setFotoProd(jtxtRuta.getText().strip());
@@ -341,10 +341,10 @@ public class ProductoGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtxtBuscarKeyReleased
 
     private void jtblRegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblRegistrosMouseClicked
-        
+
         try {
             xidProducto = Integer.parseInt(jtblRegistros.getValueAt(jtblRegistros.getSelectedRow(), 0).toString());
-            
+
             try ( // Llamar a tu método DAO
                     ResultSet rsProd = objProductoDAO.searchID(xidProducto)) {
                 if (rsProd.next()) {
@@ -428,7 +428,6 @@ public class ProductoGUI extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbtnSeleccionarActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -487,7 +486,7 @@ public class ProductoGUI extends javax.swing.JInternalFrame {
         jlblFoto.setIcon(null);
         limpiarJTable();
     }
-    
+
     public void reproducirSonido(String nombre) {
         try {
             String ruta = "src/sonidos/" + nombre + ".wav"; // Carpeta donde guardas tus audios

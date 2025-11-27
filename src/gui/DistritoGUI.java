@@ -291,7 +291,6 @@ public class DistritoGUI extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbtnBorrarActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

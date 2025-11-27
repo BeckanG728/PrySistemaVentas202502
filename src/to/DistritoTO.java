@@ -2,6 +2,7 @@ package to;
 
 // @author
 public class DistritoTO {
+
     private int idDistrito;
     private String nombDist;
     private String obsvDist;

@@ -2,6 +2,7 @@ package to;
 
 // @author
 public class ProductoTO {
+
     private int idProducto;
     private String nombProd;
     private Double precProd;
@@ -57,7 +58,5 @@ public class ProductoTO {
     public void setFotoProd(String fotoProd) {
         this.fotoProd = fotoProd;
     }
-    
-    
-    
+
 }

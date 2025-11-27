@@ -23,8 +23,7 @@ public class EmpleadoDAO implements VentasInferface<EmpleadoTO> {
 
         return rsDistrito;
     }
-    
-    
+
     public ResultSet searchID(int id) throws Exception {
         Connection con = ConexMySQL.getInstance().getConnection();
         String sql = "select * from v_empleado where id_empleado = ?";
@@ -50,14 +49,13 @@ public class EmpleadoDAO implements VentasInferface<EmpleadoTO> {
         cst.setString(8, objItem.getCeluEmpl());
         cst.setString(9, objItem.getEmailEmpl());
         cst.setString(10, objItem.getObsEmpl());
-        
+
         File objFile = new File(objItem.getFotoEmpl());
         FileInputStream objFileInputStream = new FileInputStream(objFile);
         cst.setBinaryStream(11, objFileInputStream);
 
         cst.execute();
-        
-        
+
     }
 
     @Override
@@ -76,7 +74,7 @@ public class EmpleadoDAO implements VentasInferface<EmpleadoTO> {
         cst.setString(9, objItem.getCeluEmpl());
         cst.setString(10, objItem.getEmailEmpl());
         cst.setString(11, objItem.getObsEmpl());
-        
+
         File objFile = new File(objItem.getFotoEmpl());
         if (objFile.exists()) {
             System.out.println("Existe");

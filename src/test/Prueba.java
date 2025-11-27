@@ -14,14 +14,14 @@ public class Prueba {
         try {
             EmpleadoDAO dao = new EmpleadoDAO();
             rsDistrito = dao.search("o");
-            while(rsDistrito.next()){
-                
-                Object [] distrito = {rsDistrito.getInt(1),rsDistrito.getString(2)};
+            while (rsDistrito.next()) {
+
+                Object[] distrito = {rsDistrito.getInt(1), rsDistrito.getString(2)};
                 System.out.println(Arrays.toString(distrito));
             }
-            
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error de conexion: "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error de conexion: " + e.getMessage());
         }
     }
 }

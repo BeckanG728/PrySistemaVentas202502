@@ -8,17 +8,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import to.DistritoTO;
 
-public class DistritoDAO implements VentasInferface<DistritoTO>{
+public class DistritoDAO implements VentasInferface<DistritoTO> {
 
     @Override
     public ResultSet search(Object nombreBuscar) throws Exception {
         Connection con = ConexMySQL.getInstance().getConnection();
-        String nombre = "%"+nombreBuscar+"%";
+        String nombre = "%" + nombreBuscar + "%";
         String sql = "select * from v_distrito where nomb_dist like ?";
-        PreparedStatement pst = con.prepareStatement(sql,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        PreparedStatement pst = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         pst.setString(1, nombre);
         ResultSet rsDistrito = pst.executeQuery();
-        
+
         return rsDistrito;
     }
 

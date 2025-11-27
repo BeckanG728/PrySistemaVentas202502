@@ -1,10 +1,10 @@
-
 package to;
 
 /**
  * @author
  */
 public class EmpleadoTO {
+
     private int idEmpleado;
     private String nombEmpl;
     private String apatEmpl;
@@ -21,8 +21,8 @@ public class EmpleadoTO {
     public EmpleadoTO() {
     }
 
-    public EmpleadoTO(int idEmpleado, String nombEmpl, String apatEmpl, String amatEmpl, 
-            String sexoEmpl, String direEmpl, int idDistrito, String telfEmpl, String celuEmpl, 
+    public EmpleadoTO(int idEmpleado, String nombEmpl, String apatEmpl, String amatEmpl,
+            String sexoEmpl, String direEmpl, int idDistrito, String telfEmpl, String celuEmpl,
             String emailEmpl, String obsEmpl, String fotoEmpl) {
         this.idEmpleado = idEmpleado;
         this.nombEmpl = nombEmpl;
@@ -133,6 +133,5 @@ public class EmpleadoTO {
     public void setFotoEmpl(String fotoEmpl) {
         this.fotoEmpl = fotoEmpl;
     }
-    
-    
+
 }

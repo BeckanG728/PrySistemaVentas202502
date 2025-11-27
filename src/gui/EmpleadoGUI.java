@@ -424,7 +424,7 @@ public class EmpleadoGUI extends javax.swing.JInternalFrame {
         if (codigo.isEmpty()) {
             return;
         }
-        
+
         try {
             int opcion = JOptionPane.showConfirmDialog(rootPane, "Eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
@@ -502,13 +502,12 @@ public class EmpleadoGUI extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Error al cargar empleado: " + e.getMessage());
         }
 
-
     }//GEN-LAST:event_jtblRegistrosMouseClicked
 
     private void jbtnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSeleccionarActionPerformed
         JFileChooser objJFileChooser = new JFileChooser();
         int op = objJFileChooser.showOpenDialog(this);
-        
+
         if (op == objJFileChooser.APPROVE_OPTION) {
             ruta = objJFileChooser.getSelectedFile().getAbsolutePath();
             jlblFoto.setIcon(new ImageIcon(ruta));
@@ -524,7 +523,6 @@ public class EmpleadoGUI extends javax.swing.JInternalFrame {
             jtxtRuta.setText(ruta);
         }
     }//GEN-LAST:event_jbtnSeleccionarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
