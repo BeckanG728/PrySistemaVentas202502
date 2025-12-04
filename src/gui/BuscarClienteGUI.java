@@ -23,7 +23,7 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
     public BuscarClienteGUI() {
         initComponents();
         dtm = (DefaultTableModel) tblRegistros.getModel();
-        this.setSize(567, 317);
+        this.setSize(567, 340);
         this.setLocation(800,50);
         this.setVisible(true);
     }
@@ -72,6 +72,11 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
         btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
 
         jLabel1.setText("Ingrese nombre del cliente:");
@@ -95,9 +100,7 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
         );
 
         pack();
@@ -108,6 +111,10 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
         String nombre = txtBuscar.getText().strip();
         
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
