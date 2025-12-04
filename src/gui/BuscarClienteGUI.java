@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author chila
  */
-public class BuscarClienteGUI extends javax.swing.JInternalFrame {
+public class BuscarClienteGUI extends javax.swing.JFrame {
 
     DefaultTableModel dtm;
     

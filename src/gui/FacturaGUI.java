@@ -276,6 +276,11 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/nuevo.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 140, 40));
 
         btnGrabar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/grabar.png"))); // NOI18N
@@ -288,6 +293,11 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         btnCancelar.setText("Cancelar");
         btnCancelar.setEnabled(false);
         btnCancelar.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 55, 140, 40));
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/salir.png"))); // NOI18N
@@ -353,6 +363,14 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         BuscarClienteGUI buscarClienteGUI = new BuscarClienteGUI();
     }//GEN-LAST:event_btnClienteActionPerformed
 
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        habilitarControles(true);
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        habilitarControles(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
@@ -414,9 +432,11 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         txtCantidad.setEditable(b);
         btnGrabar.setEnabled(b);
         btnCancelar.setEnabled(b);
+        
         btnCliente.setEnabled(b);
         btnEmpleado.setEnabled(b);
         btnProducto.setEnabled(b);
+        
         btnAgregar.setEnabled(b);
         btnEliminar.setEnabled(b);
         btnNuevo.setEnabled(!b);
