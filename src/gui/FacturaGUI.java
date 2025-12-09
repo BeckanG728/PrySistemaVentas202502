@@ -4,9 +4,14 @@
  */
 package gui;
 
+import dao.DetalleFacturaDAO;
+import dao.FacturaDAO;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import to.DetalleFacturaTO;
+import to.FacturaTO;
 
 /**
  *
@@ -22,6 +27,9 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
     double subtotal;
     double igv;
     double total;
+
+    FacturaDAO objFacturaDAO = new FacturaDAO();
+    DetalleFacturaDAO objDetalleFacturaDAO = new DetalleFacturaDAO();
 
     /**
      * Creates new form FacturaGUI
@@ -75,9 +83,11 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         btnAgregar = new javax.swing.JButton();
         txtImporte = new javax.swing.JTextField();
         txtIdProducto = new javax.swing.JTextField();
-        txtNombProd = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
         txtCantidad = new javax.swing.JTextField();
         btnProducto = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        txtNombProd = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRegistros = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
@@ -182,6 +192,11 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         jPanel2.add(txtPaterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 100, -1));
 
         btnEmpleado.setText("...");
+        btnEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmpleadoActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 40, 25));
 
         jPanel4.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 620, 75));
@@ -199,7 +214,7 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         pnlProducto.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 20));
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Nombre:");
+        jLabel12.setText("Precio");
         pnlProducto.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 35, -1, 20));
 
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
@@ -208,10 +223,20 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
 
         btnEliminar.setText("Eliminar");
         btnEliminar.setEnabled(false);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
         pnlProducto.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, -1, -1));
 
         btnAgregar.setText("Agregar");
         btnAgregar.setEnabled(false);
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
         pnlProducto.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, -1));
 
         txtImporte.setEditable(false);
@@ -220,14 +245,31 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         txtIdProducto.setEditable(false);
         pnlProducto.add(txtIdProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 165, -1));
 
-        txtNombProd.setEditable(false);
-        pnlProducto.add(txtNombProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 35, 130, -1));
+        txtPrecio.setEditable(false);
+        pnlProducto.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 35, 120, -1));
 
         txtCantidad.setEditable(false);
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
         pnlProducto.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 35, 100, -1));
 
         btnProducto.setText("...");
-        pnlProducto.add(btnProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 40, 25));
+        btnProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductoActionPerformed(evt);
+            }
+        });
+        pnlProducto.add(btnProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 40, 25));
+
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Nombre:");
+        pnlProducto.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, 20));
+
+        txtNombProd.setEditable(false);
+        pnlProducto.add(txtNombProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 130, -1));
 
         jPanel4.add(pnlProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 620, 100));
 
@@ -287,6 +329,11 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         btnGrabar.setText("Grabar");
         btnGrabar.setEnabled(false);
         btnGrabar.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnGrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 140, 40));
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cancelar.png"))); // NOI18N
@@ -360,7 +407,7 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        BuscarClienteGUI buscarClienteGUI = new BuscarClienteGUI();
+        MenuGUI.desktopPane.add(new BuscarClienteGUI());
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -370,6 +417,96 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         habilitarControles(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
+        MenuGUI.desktopPane.add(new BuscarEmpleadoGUI());
+    }//GEN-LAST:event_btnEmpleadoActionPerformed
+
+    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
+        MenuGUI.desktopPane.add(new BuscarProductoGUI());
+    }//GEN-LAST:event_btnProductoActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        precio = Double.parseDouble(txtPrecio.getText().strip());
+        cantidad = Integer.parseInt(txtCantidad.getText().strip());
+        importe = precio * cantidad;
+        txtImporte.setText(String.format("%.2f", importe));
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        try {
+            if (importe == 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione un producto o falta ingresar cantidad");
+                return;
+            }
+
+            Object[] registro = {
+                txtIdProducto.getText().strip(),
+                txtNombProd.getText().strip(),
+                precio, cantidad, importe
+            };
+
+            if (dtm.getRowCount() == 0) {
+                dtm.addRow(registro);
+            } else {
+                int cont = 0;
+                boolean sw = false;
+                int xidProd = Integer.parseInt(txtIdProducto.getText());
+                while (cont < dtm.getRowCount()) {
+                    if (xidProd == Integer.parseInt(dtm.getValueAt(cont, 0).toString())) {
+                        JOptionPane.showMessageDialog(null, "Producto ya existe");
+                        cont = dtm.getRowCount();
+                        sw = true;
+                    }
+                    cont++;
+                }
+
+                if (!sw) {
+                    dtm.addRow(registro);
+                }
+            }
+            limpiarProducto();
+            calcularTotales();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        dtm.removeRow(tblRegistros.getSelectedRow());
+        calcularTotales();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+        try {
+            int xidFactura;
+            FacturaTO facturaTO = new FacturaTO();
+            facturaTO.setIdCliente(Integer.parseInt(txtIdCliente.getText().strip()));
+            facturaTO.setIdEmpleado(Integer.parseInt(txtIdEmpleado.getText().strip()));
+            facturaTO.setStotFact(subtotal);
+            facturaTO.setIgvFact(igv);
+            facturaTO.setTotaFact(total);
+            objFacturaDAO.insert(facturaTO);
+            xidFactura = objFacturaDAO.obtenerIdFactura();
+
+            int fila = dtm.getRowCount();
+            for (int i = 0; i < fila; i++) {
+                DetalleFacturaTO detFact = new DetalleFacturaTO();
+                detFact.setIdFactura(xidFactura);
+                detFact.setIdProducto(Integer.parseInt(tblRegistros.getValueAt(i, 0).toString()));
+                detFact.setPrecio(Double.parseDouble(tblRegistros.getValueAt(i, 2).toString()));
+                detFact.setCantidad(Integer.parseInt(tblRegistros.getValueAt(i, 3).toString()));
+                detFact.setImporte(Double.parseDouble(tblRegistros.getValueAt(i, 4).toString()));
+                objDetalleFacturaDAO.insert(detFact);
+            }
+            habilitarControles(false);
+            limpiarControles();
+            JOptionPane.showMessageDialog(null, "Factura grabada");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnGrabarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -385,6 +522,7 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -409,21 +547,22 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnlProducto;
     private javax.swing.JTable tblRegistros;
     private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtCiudad;
-    private javax.swing.JTextField txtDirecClie;
+    public static javax.swing.JTextField txtCelular;
+    public static javax.swing.JTextField txtCiudad;
+    public static javax.swing.JTextField txtDirecClie;
     private javax.swing.JTextField txtFactura;
     private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtIdCliente;
-    private javax.swing.JTextField txtIdEmpleado;
-    private javax.swing.JTextField txtIdProducto;
+    public static javax.swing.JTextField txtIdCliente;
+    public static javax.swing.JTextField txtIdEmpleado;
+    public static javax.swing.JTextField txtIdProducto;
     private javax.swing.JTextField txtIgv;
     private javax.swing.JTextField txtImporte;
-    private javax.swing.JTextField txtMaterno;
-    private javax.swing.JTextField txtNombClie;
-    private javax.swing.JTextField txtNombEmpl;
-    private javax.swing.JTextField txtNombProd;
-    private javax.swing.JTextField txtPaterno;
+    public static javax.swing.JTextField txtMaterno;
+    public static javax.swing.JTextField txtNombClie;
+    public static javax.swing.JTextField txtNombEmpl;
+    public static javax.swing.JTextField txtNombProd;
+    public static javax.swing.JTextField txtPaterno;
+    public static javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
@@ -432,11 +571,11 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         txtCantidad.setEditable(b);
         btnGrabar.setEnabled(b);
         btnCancelar.setEnabled(b);
-        
+
         btnCliente.setEnabled(b);
         btnEmpleado.setEnabled(b);
         btnProducto.setEnabled(b);
-        
+
         btnAgregar.setEnabled(b);
         btnEliminar.setEnabled(b);
         btnNuevo.setEnabled(!b);
@@ -447,9 +586,9 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         JTextField[] textFields = {
             txtCantidad, txtCelular, txtCiudad, txtDirecClie,
             txtIdCliente, txtIdEmpleado, txtIdProducto, txtImporte,
-            txtMaterno, txtNombClie, txtNombEmpl, txtNombProd,
+            txtMaterno, txtNombClie, txtNombEmpl, txtPrecio,
             txtPaterno, txtFactura, txtFecha, txtIgv,
-            txtSubTotal, txtTotal
+            txtSubTotal, txtTotal, txtNombProd
         };
 
         for (JTextField textField : textFields) {
@@ -465,6 +604,7 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
     private void limpiarProducto() {
         txtIdProducto.setText("");
         txtNombProd.setText("");
+        txtPrecio.setText("");
         txtCantidad.setText("");
         txtImporte.setText("");
         cantidad = 0;
@@ -472,4 +612,19 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
         importe = 0;
     }
 
+    private void calcularTotales() {
+        subtotal = 0;
+        igv = 0;
+        total = 0;
+        int filas = dtm.getRowCount();
+        for (int i = 0; i < filas; i++) {
+            total = total + Double.parseDouble(dtm.getValueAt(i, 4).toString());
+        }
+
+        subtotal = total / 1.18;
+        igv = total - subtotal;
+        txtSubTotal.setText(String.format("%.2f", subtotal));
+        txtIgv.setText(String.format("%.2f", igv));
+        txtTotal.setText(String.format("%.2f", total));
+    }
 }

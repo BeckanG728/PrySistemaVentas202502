@@ -14,7 +14,6 @@ public class ClienteTO {
     private String celular;
     private String email;
     private String observacion;
-    private int estado;
 
     // Constructor vacío
     public ClienteTO() {
@@ -23,7 +22,7 @@ public class ClienteTO {
     // Constructor completo
     public ClienteTO(int idCliente, String ruc, String nombre, String direccion,
                    int idDistrito, String telefono, String celular,
-                   String email, String observacion, int estado) {
+                   String email, String observacion) {
         this.idCliente = idCliente;
         this.ruc = ruc;
         this.nombre = nombre;
@@ -33,7 +32,6 @@ public class ClienteTO {
         this.celular = celular;
         this.email = email;
         this.observacion = observacion;
-        this.estado = estado;
     }
 
     // Getters y Setters
@@ -107,13 +105,5 @@ public class ClienteTO {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
     }
 }

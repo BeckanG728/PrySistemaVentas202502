@@ -1,30 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
+import dao.ClienteDAO;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author chila
  */
-public class BuscarClienteGUI extends javax.swing.JFrame {
+public class BuscarClienteGUI extends javax.swing.JInternalFrame {
 
     DefaultTableModel dtm;
-    
+    ClienteDAO clienteDAO = new ClienteDAO();
     ResultSet rsClie;
 
-    /**
-     * Creates new form BuscarClienteGUI
-     */
     public BuscarClienteGUI() {
         initComponents();
         dtm = (DefaultTableModel) tblRegistros.getModel();
         this.setSize(567, 340);
-        this.setLocation(800,50);
+        this.setLocation(800, 50);
         this.setVisible(true);
     }
 
@@ -45,7 +41,7 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         btnAgregarFactura = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -66,6 +62,11 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
             }
         });
         tblRegistros.getTableHeader().setReorderingAllowed(false);
+        tblRegistros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRegistrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblRegistros);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 540, 190));
@@ -107,49 +108,48 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        txtBuscar.setText("");
+        limpiarJTable();
         String nombre = txtBuscar.getText().strip();
-        
+
+        try {
+            if (nombre.isEmpty()) {
+                return;
+            }
+
+            rsClie = clienteDAO.search(nombre);
+            while (rsClie.next()) {
+                Object[] registro = {
+                    rsClie.getInt(1),
+                    rsClie.getString(3),
+                    rsClie.getString(4),
+                    rsClie.getString(5),
+                    rsClie.getString(7)
+                };
+                dtm.addRow(registro);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(BuscarClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(BuscarClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(BuscarClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(BuscarClienteGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new BuscarClienteGUI().setVisible(true);
-//            }
-//        });
-//    }
+    private void tblRegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRegistrosMouseClicked
+        try {
+            FacturaGUI.txtIdCliente.setText(tblRegistros.getValueAt(tblRegistros.getSelectedRow(), 0).toString());
+            FacturaGUI.txtNombClie.setText(tblRegistros.getValueAt(tblRegistros.getSelectedRow(), 1).toString());
+            FacturaGUI.txtDirecClie.setText(tblRegistros.getValueAt(tblRegistros.getSelectedRow(), 2).toString());
+            FacturaGUI.txtCiudad.setText(tblRegistros.getValueAt(tblRegistros.getSelectedRow(), 3).toString());
+            FacturaGUI.txtCelular.setText(tblRegistros.getValueAt(tblRegistros.getSelectedRow(), 4).toString());
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_tblRegistrosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarFactura;
@@ -160,4 +160,9 @@ public class BuscarClienteGUI extends javax.swing.JFrame {
     private javax.swing.JTable tblRegistros;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+    
+    private void limpiarJTable(){
+        dtm.setRowCount(0);
+    }
+
 }
