@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9eefe2e8-2bfa-443c-84fb-a11907c29370">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="beab8fa2-bce1-41db-b13e-5cc7ae7a4ce0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="id_factura" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	<parameter name="p.id_factura" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from v_factura where id_factura = $P{id_factura}]]>
+		<![CDATA[select * from v_factura where id_factura = $P{p.id_factura}]]>
 	</queryString>
 	<field name="id_factura" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -60,19 +60,23 @@
 	<columnHeader>
 		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="34" y="2" width="100" height="20" uuid="60ce6baa-a99b-4a1a-952b-de858031b1ae"/>
+				<reportElement x="76" y="2" width="100" height="20" uuid="959d2772-5637-41a8-9636-82cd0a988c46"/>
 				<text><![CDATA[id_factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="183" y="2" width="100" height="20" uuid="e9ed9cb9-ce16-4088-88af-72398ff5403c"/>
+				<reportElement x="257" y="2" width="100" height="20" uuid="5a63b830-8c0c-43b6-a300-e1dc0c72d238"/>
 				<text><![CDATA[fech_fact]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="293" y="2" width="100" height="20" uuid="d64e317a-995a-4668-bafc-703b5843a640"/>
+				<reportElement x="385" y="2" width="100" height="20" uuid="ddb56369-df71-4093-a551-eaeccf1172b0"/>
 				<text><![CDATA[nomb_clie]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="426" y="2" width="100" height="20" uuid="335e6428-f3e6-4243-9179-85823c346136"/>
+				<reportElement x="538" y="2" width="100" height="20" uuid="2efa4ce5-5093-4536-9839-98070877c890"/>
+				<text><![CDATA[id_producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="694" y="2" width="100" height="20" uuid="47cfc8ca-fd07-41c4-bc99-0227b58bac39"/>
 				<text><![CDATA[cantidad]]></text>
 			</staticText>
 		</band>
@@ -80,19 +84,23 @@
 	<detail>
 		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="34" y="34" width="100" height="20" uuid="4ba3895a-8c45-4801-b20d-bca150bc6154"/>
+				<reportElement x="76" y="50" width="100" height="20" uuid="a7adb187-6227-4629-98aa-81fc12cd0361"/>
 				<textFieldExpression><![CDATA[$F{id_factura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="155" y="34" width="100" height="20" uuid="f15088ba-f1aa-4243-b3b2-59f277c9000e"/>
+				<reportElement x="257" y="62" width="100" height="20" uuid="e545d768-098d-48be-9b1d-04aba8cbf429"/>
 				<textFieldExpression><![CDATA[""+$F{fech_fact}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="283" y="34" width="100" height="20" uuid="78c550f6-b67f-49b5-af5e-c22139db049c"/>
+				<reportElement x="385" y="66" width="100" height="20" uuid="6b92a411-affb-4bcd-8ce5-507b65f006e6"/>
 				<textFieldExpression><![CDATA[$F{nomb_clie}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="413" y="34" width="100" height="20" uuid="15fd3b59-0be3-4a0a-b53c-36ff59e2e315"/>
+				<reportElement x="538" y="69" width="100" height="20" uuid="12f6bf4e-0d0c-4384-b013-b185bdebb545"/>
+				<textFieldExpression><![CDATA[$F{id_producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="694" y="73" width="100" height="20" uuid="9da82114-7e7f-402c-b63a-2edb4964ca47"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 		</band>

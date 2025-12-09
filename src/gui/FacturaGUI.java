@@ -522,10 +522,10 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
 
             JasperReport reporte = JasperCompileManager.compileReport(direccion);
             Map parametros = new HashMap();
-            parametros.put("p.id_factura", objFacturaDAO.obtenerIdFactura());
+            parametros.put("id_factura", objFacturaDAO.obtenerIdFactura());
             JasperPrint mostrarReporte = JasperFillManager.fillReport(reporte, parametros, con);
             JasperViewer view = new JasperViewer(mostrarReporte, false);
-            view.setTitle("Reporte de clientes");
+            view.setTitle("Reporte de factura");
             view.setExtendedState(MAXIMIZED_BOTH);
             view.setVisible(true);
             
