@@ -1,5 +1,15 @@
 package gui;
 
+import conexionMySQL.ConexMySQL;
+import java.io.File;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
 public class MenuGUI extends javax.swing.JFrame {
 
     /**
@@ -126,6 +136,11 @@ public class MenuGUI extends javax.swing.JFrame {
         repCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/cliente.png"))); // NOI18N
         repCliente.setMnemonic('c');
         repCliente.setText("Cliente");
+        repCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repClienteActionPerformed(evt);
+            }
+        });
         mnuReportes.add(repCliente);
 
         repDistrito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/distrito.png"))); // NOI18N
@@ -221,6 +236,27 @@ public class MenuGUI extends javax.swing.JFrame {
     private void facGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facGenerarActionPerformed
         MenuGUI.desktopPane.add(new FacturaGUI());
     }//GEN-LAST:event_facGenerarActionPerformed
+
+    private void repClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repClienteActionPerformed
+        try {
+            Connection con = ConexMySQL.getInstance().getConnection();
+            String direccion = System.getProperty("user.dir") + "\\src\\reporte\\repCliente.jrxml";
+            System.out.println("Ruta: " + direccion);
+            File f = new File(direccion);
+            System.out.println("Existe: " + f.exists());
+
+            JasperReport reporte = JasperCompileManager.compileReport(direccion);
+            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporte, null, con);
+            JasperViewer view = new JasperViewer(mostrarReporte, false);
+            view.setTitle("Reporte de clientes");
+            view.setExtendedState(MAXIMIZED_BOTH);
+            view.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
+    }//GEN-LAST:event_repClienteActionPerformed
 
     /**
      * @param args the command line arguments

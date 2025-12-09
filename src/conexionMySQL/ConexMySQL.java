@@ -3,36 +3,31 @@ package conexionMySQL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-// @author
 public class ConexMySQL {
 
-    private static ConexMySQL instance = null;
-    private Connection connection = null;
+    private static ConexMySQL instance;
 
-    public ConexMySQL() throws Exception {
+    private String url = "jdbc:mysql://localhost:3306/ventas202502?useSSL=false&serverTimezone=UTC";
+    private String usuario = "root";
+    private String clave = "";
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-        String url = "jdbc:mysql://localhost:3306/ventas202502";
-        String usuario = "root";
-        String clave = "";
-
-        connection = DriverManager.getConnection(url, usuario, clave);
+    private ConexMySQL() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static ConexMySQL getInstance() throws Exception {
-        return (instance == null) ? new ConexMySQL() : instance;
+    public static ConexMySQL getInstance() {
+        if (instance == null) {
+            instance = new ConexMySQL();
+        }
+        return instance;
     }
 
-    public Connection getConnection() {
-        return connection;
+    // SIEMPRE devuelve una conexión nueva
+    public Connection getConnection() throws Exception {
+        return DriverManager.getConnection(url, usuario, clave);
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        connection.close();
-        connection = null;
-        super.finalize();
-    }
-
 }

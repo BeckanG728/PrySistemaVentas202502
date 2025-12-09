@@ -4,12 +4,23 @@
  */
 package gui;
 
+import conexionMySQL.ConexMySQL;
 import dao.DetalleFacturaDAO;
 import dao.FacturaDAO;
 import java.awt.Component;
+import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.io.File;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import to.DetalleFacturaTO;
 import to.FacturaTO;
 
@@ -502,6 +513,22 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
             habilitarControles(false);
             limpiarControles();
             JOptionPane.showMessageDialog(null, "Factura grabada");
+
+            Connection con = ConexMySQL.getInstance().getConnection();
+            String direccion = System.getProperty("user.dir") + "\\src\\reporte\\repFactura.jrxml";
+            System.out.println("Ruta: " + direccion);
+            File f = new File(direccion);
+            System.out.println("Existe: " + f.exists());
+
+            JasperReport reporte = JasperCompileManager.compileReport(direccion);
+            Map parametros = new HashMap();
+            parametros.put("p.id_factura", objFacturaDAO.obtenerIdFactura());
+            JasperPrint mostrarReporte = JasperFillManager.fillReport(reporte, parametros, con);
+            JasperViewer view = new JasperViewer(mostrarReporte, false);
+            view.setTitle("Reporte de clientes");
+            view.setExtendedState(MAXIMIZED_BOTH);
+            view.setVisible(true);
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e);
             e.printStackTrace();
