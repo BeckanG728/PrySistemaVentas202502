@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 public class ConexMySQL {
 
     private static ConexMySQL instance;
+    
+    
 
     private String url = "jdbc:mysql://localhost:3306/ventas202502?useSSL=false&serverTimezone=UTC";
     private String usuario = "root";

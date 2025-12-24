@@ -516,13 +516,10 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
 
             Connection con = ConexMySQL.getInstance().getConnection();
             String direccion = System.getProperty("user.dir") + "\\src\\reporte\\repFactura.jrxml";
-            System.out.println("Ruta: " + direccion);
-            File f = new File(direccion);
-            System.out.println("Existe: " + f.exists());
-
             JasperReport reporte = JasperCompileManager.compileReport(direccion);
             Map parametros = new HashMap();
             parametros.put("id_factura", objFacturaDAO.obtenerIdFactura());
+            
             JasperPrint mostrarReporte = JasperFillManager.fillReport(reporte, parametros, con);
             JasperViewer view = new JasperViewer(mostrarReporte, false);
             view.setTitle("Reporte de factura");
