@@ -499,6 +499,7 @@ public class FacturaGUI extends javax.swing.JInternalFrame {
             facturaTO.setTotaFact(total);
             objFacturaDAO.insert(facturaTO);
             xidFactura = objFacturaDAO.obtenerIdFactura();
+            
 
             int fila = dtm.getRowCount();
             for (int i = 0; i < fila; i++) {
